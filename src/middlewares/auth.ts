@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import User from "../models/user.model";
+import User from "../models/userModel";
 
 interface CustomRequest extends Request {
   user: any; // Replace 'any' with the type of 'user' if it's known
