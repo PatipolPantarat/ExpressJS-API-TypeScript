@@ -2,7 +2,7 @@ import mongoose, { Schema, Document, Model } from "mongoose";
 
 enum ProductStatus {
   active = "active",
-  disabled = "disabled",
+  inactive = "inactive",
 }
 interface IProduct extends Document {
   name: string;
@@ -26,7 +26,7 @@ const productSchema: Schema<IProduct> = new Schema<IProduct>({
   stock: { type: Number, default: 0 },
   thumbnail: { type: String, required: true },
   images: { type: [String] },
-  status: { type: String, enum: ["active", "disabled"], default: "active" },
+  status: { type: String, enum: ["active", "inactive"], default: "active" },
   createdBy: { type: Schema.Types.ObjectId, ref: "User" },
   createdAt: { type: Date, default: Date.now, required: true },
   updatedAt: { type: Date, default: Date.now, required: true },

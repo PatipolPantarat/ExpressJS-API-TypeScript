@@ -2,8 +2,7 @@ import Joi from "joi";
 
 const categoryJoiSchema = Joi.object({
   name: Joi.string().required(),
-  value: Joi.string().allow("", null),
-  status: Joi.string().valid("active", "disabled").default("active"),
+  status: Joi.string().valid("active", "inactive").default("active"),
   createdBy: Joi.string().optional(),
 });
 

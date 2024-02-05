@@ -8,7 +8,7 @@ const productJoiSchema = Joi.object({
   stock: Joi.number().positive().integer().min(0).default(0),
   thumbnail: Joi.string().required(),
   images: Joi.array().items(Joi.string()).default([]),
-  status: Joi.string().valid("active", "disabled").default("active"),
+  status: Joi.string().valid("active", "inactive").default("active"),
   createdBy: Joi.string().optional(),
 });
 

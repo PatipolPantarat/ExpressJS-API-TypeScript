@@ -24,14 +24,13 @@ router.get("/", allProducts);
 router.get("/id/:id", oneProduct);
 
 // create new product
-// router.post("/", createProduct);
 router.post("/add", upload.single("thumbnail"), createProduct);
 
 // update product
 router.put("/update/:id", updateProduct);
 
 // delete product
-router.delete("/del/:id", deleteProduct);
+router.delete("/delete/:id", deleteProduct);
 
 // get all categories
 router.get("/categories", allCategories);

@@ -13,6 +13,7 @@ export const allCategories = async (req: any, res: any) => {
 };
 
 export const createCategories = async (req: any, res: any) => {
+  console.log("req.body : ", req.body);
   try {
     const { error, value } = categoryJoiSchema.validate(req.body);
     if (error) {
