@@ -9,7 +9,9 @@ import {
 } from "../controllers/productController";
 import {
   allCategories,
-  createCategories,
+  createCategory,
+  updateCategory,
+  deleteCategory,
 } from "../controllers/categoryController";
 
 const router = Router();
@@ -36,6 +38,12 @@ router.delete("/delete/:id", deleteProduct);
 router.get("/categories", allCategories);
 
 // create new category
-router.post("/categories/add", createCategories);
+router.post("/categories/add", createCategory);
+
+// update category
+router.put("/categories/update/:id", updateCategory);
+
+// delete category
+router.delete("/categories/delete/:id", deleteCategory);
 
 export default router;
