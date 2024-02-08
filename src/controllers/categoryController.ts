@@ -13,6 +13,18 @@ export const allCategories = async (req: any, res: any) => {
   }
 };
 
+export const activeCategory = async (req: any, res: any) => {
+  try {
+    const categories = await Category.find({ status: "active" });
+    res.send({
+      message: `Active categories: ${categories.length}`,
+      categories,
+    });
+  } catch (error) {
+    console.log("activeCategory error : ", error);
+  }
+};
+
 export const createCategory = async (req: any, res: any) => {
   console.log("req.body : ", req.body);
   try {

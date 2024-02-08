@@ -9,6 +9,7 @@ import {
 } from "../controllers/productController";
 import {
   allCategories,
+  activeCategory,
   createCategory,
   updateCategory,
   deleteCategory,
@@ -36,6 +37,9 @@ router.delete("/delete/:id", deleteProduct);
 
 // get all categories
 router.get("/categories", allCategories);
+
+// get active categories
+router.get("/categories/active", activeCategory);
 
 // create new category
 router.post("/categories/add", createCategory);
