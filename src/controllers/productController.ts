@@ -38,21 +38,22 @@ export const createProduct = async (req: any, res: any) => {
   console.log("created product req.body : ", req.body);
   console.log("created product req.file : ", thumbnail);
 
-  // Setting up s3 upload
-  const params = {
-    Bucket: process.env.AWS_BUCKET_NAME!,
-    Key: thumbnail.originalname + "_" + Date.now(),
-    Body: req.file.buffer,
-    contentType: thumbnail.mimetype,
-  };
+  // // Setting up s3 upload
+  // const params = {
+  //   Bucket: process.env.AWS_BUCKET_NAME!,
+  //   Key: thumbnail.originalname + "_" + Date.now(),
+  //   Body: req.file.buffer,
+  //   contentType: thumbnail.mimetype,
+  // };
 
-  // Upload the file to s3
-  const url = await s3
-    .upload(params)
-    .promise()
-    .then((data) => {
-      return data.Location;
-    });
+  // // Upload the file to s3
+  // const url = await s3
+  //   .upload(params)
+  //   .promise()
+  //   .then((data) => {
+  //     return data.Location;
+  //   });
+  const url = await uploadImageToS3(thumbnail);
   const reqBody = { ...req.body, thumbnail: url };
   console.log("reqBody : ", reqBody);
 
@@ -62,6 +63,7 @@ export const createProduct = async (req: any, res: any) => {
     console.log("validate error : ", error);
     return res.status(400).send({ message: error.details[0].message });
   }
+  console.log("value : ", value);
 
   // Save product
   try {
@@ -76,10 +78,15 @@ export const createProduct = async (req: any, res: any) => {
 };
 
 export const updateProduct = async (req: any, res: any) => {
+  let reqBody = { ...req.body };
+  if (req.file) {
+    const url = await uploadImageToS3(req.file);
+    reqBody = { ...req.body, thumbnail: url };
+  }
   try {
     const updateProduct = await Product.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      reqBody,
       {
         new: true,
       }
@@ -99,4 +106,23 @@ export const deleteProduct = async (req: any, res: any) => {
     console.log("deleteProduct error : ", error);
     res.status(500).send({ message: "Internal server error" });
   }
+};
+
+const uploadImageToS3 = async (thumbnail: any) => {
+  // Setting up s3 upload
+  const params = {
+    Bucket: process.env.AWS_BUCKET_NAME!,
+    Key: thumbnail.originalname + "_" + Date.now(),
+    Body: thumbnail.buffer,
+    contentType: thumbnail.mimetype,
+  };
+
+  // Upload the file to s3
+  const url = await s3
+    .upload(params)
+    .promise()
+    .then((data) => {
+      return data.Location;
+    });
+  return url;
 };

@@ -6,7 +6,11 @@ import { serverConfig } from "./config/config";
 
 // Database
 import connectToMongoDB from "./db/connect";
-connectToMongoDB();
+try {
+  connectToMongoDB();
+} catch (error) {
+  console.log(error);
+}
 
 // Middleware
 import bodyParser from "body-parser";
