@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import User from "../models/userModel";
 import jwt from "jsonwebtoken";
 
-export const me = async (req: any, res: any) => {
+export const getme = async (req: any, res: any) => {
   if (!req.query.jwtToken) {
     res.status(400).json({
       error: "JWT Token required",

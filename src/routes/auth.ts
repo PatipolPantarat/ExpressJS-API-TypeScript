@@ -1,5 +1,5 @@
 import {
-  me,
+  getme,
   register,
   adminLogin,
   userLogin,
@@ -7,7 +7,7 @@ import {
 import { Router } from "express";
 const router = Router();
 
-router.get("/me", me);
+router.get("/getme", getme);
 router.post("/admin/login", adminLogin);
 router.post("/user/login", userLogin);
 router.post("/register", register);

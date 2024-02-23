@@ -2,6 +2,10 @@ import Product from "../models/productModel";
 import { productJoiSchema } from "../schema/productValidation";
 import s3 from "../config/aws-config";
 
+export const testSum = (num1: number, num2: number) => {
+  return num1 + num2;
+};
+
 export const allProducts = async (req: any, res: any) => {
   let query = {};
   try {
